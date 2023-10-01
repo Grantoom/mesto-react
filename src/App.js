@@ -1,5 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
+
+import headerLogo from './images/logo.svg'; 
+import profileAvatar from './images/Man.jpg';
 
 function App() {
   return (
@@ -8,14 +10,14 @@ function App() {
     <div className="page">
   
       <header className="header">
-        <img src="<%=require('./images/logo.svg')%>" alt="Логотип место" className="header__logo" />
+        <img src={headerLogo} alt="Логотип место" className="header__logo" />
       </header>
   
       <main className="content">
   
         <section className="profile">
           <button className="profile__avatar-edit-button" type="button" aria-label="Редактировать-аватар"></button>
-          <img src="<%=require('./images/Man.jpg')%>" alt="Фото профиля" className="profile__avatar"  />
+          <img src={profileAvatar} alt="Фото профиля" className="profile__avatar"  />
   
           <div className="profile__info">
             <h1 className="profile__section-title">Жак-Ив Кусто</h1>
