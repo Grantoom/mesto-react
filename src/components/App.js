@@ -1,11 +1,35 @@
 import '../index.css';
 
+import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 
 function App() {
+
+  const [isProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
+  const [isAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
+  const [isPhotoPopupOpen, setPhotoPopupOpen] = React.useState(false);
+
+  function handleEditAvatarClick () {
+    setAvatarPopupOpen(true);   
+  }
+
+  function handleEditProfileClick () {
+    setProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick () {
+    setPhotoPopupOpen(true);
+  }
+
+  const closeAllPopup = () => {
+    setProfilePopupOpen(false);
+    setAvatarPopupOpen(false);
+    setPhotoPopupOpen(false);
+  }
+
   return (
     <div className="root">
 
@@ -13,7 +37,13 @@ function App() {
   
       <Header />
   
-      <Main />
+      <Main 
+
+      onEditProfile={handleEditProfileClick}
+      onEditAvatar={handleEditAvatarClick}
+      onAddPhoto={handleAddPlaceClick}
+      
+      />
   
       <Footer />
   
@@ -21,6 +51,8 @@ function App() {
   
     
     <PopupWithForm
+        isOpen={isProfilePopupOpen}
+        onClose={closeAllPopup}
         name="edit-profile"
         containerClass=""
         formName="popupFormProfile"
@@ -40,6 +72,8 @@ function App() {
     </PopupWithForm>
 
     <PopupWithForm
+        isOpen={isAvatarPopupOpen}
+        onClose={closeAllPopup}
         name="type_avatar"
         containerClass="popup__container-avatar"
         formName="inputAvatar"
@@ -53,6 +87,8 @@ function App() {
     </PopupWithForm>
 
     <PopupWithForm
+        isOpen={isPhotoPopupOpen}
+        onClose={closeAllPopup}
         name="add-photo"
         containerClass=""
         formName="popupFormAddCard"
@@ -69,9 +105,8 @@ function App() {
             <input id="placeLink-input" className="popup__input popup__input_UrlCard" placeholder="Ссылка на картинку" name="link" type="url" required  />
             <span id="link-error" className="popup__error-visible"></span>
           </label>
-      </PopupWithForm>
+    </PopupWithForm>
   
-     
     <div className="popup popup-image">
       <div className="popup-image__container">
   
