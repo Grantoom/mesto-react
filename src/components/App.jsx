@@ -11,6 +11,7 @@ function App() {
   const [isAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setPhotoPopupOpen] = React.useState(false);
+  const [SelectedCard, setSelectedCard] = React.useState({})
 
   function handleEditAvatarClick () {
     setAvatarPopupOpen(true);   

@@ -10,30 +10,21 @@ function Main(props) {
     const[cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-        api.getUserInfo()
-            .then((data) => {
-            setUserName(data.name);
-            setUserDescription(data.about);
-            setUserAvatar(data.avatar);
+        Promise.all([api.getUserInfo(), api.getCards()])
+            .then(([resDataUser, resDataCard]) => {
+                setUserName(resDataUser.name)
+                setUserDescription(resDataUser.about)
+                setUserAvatar(resDataUser.avatar)
+                setCards(resDataCard)
             })
-            .catch((err) => {
-            console.log('Ошибка. Запрос на данные пользователя не выполнен: ', err);
-            });
-
-        // api.getCardData()
-        //     .then((data) => {
-        //     setCards(data); 
-        //     })
-        //     .catch((err) => {
-        //     console.log('Ошибка. Запрос на данные карточек не выполнен: ', err);
-        // });
-    }, []);
+            .catch(err => console.log(`Что-то пошло не так: ${err}`))
+    }, [])
 
     return (
         <main className="content">
             <section className="profile">
                 <button onClick={props.onEditAvatar} className="profile__avatar-edit-button" type="button" aria-label="Редактировать-аватар"></button>
-                <img style={{ backgroundImage: `url(${userAvatar})` }} src={userAvatar} alt="Фото профиля" className="profile__avatar"  />
+                <img src={userAvatar} alt="Фото профиля" className="profile__avatar"  />
 
                 <div className="profile__info">
                 <h1 className="profile__section-title">{userName}</h1>
