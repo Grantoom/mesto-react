@@ -6,7 +6,6 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 
-
 function App() {
 
   const [isAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
@@ -39,11 +38,9 @@ function App() {
       <Header />
   
       <Main 
-
       onEditProfile={handleEditProfileClick}
       onEditAvatar={handleEditAvatarClick}
       onAddPhoto={handleAddPlaceClick}
-      
       />
   
       <Footer />

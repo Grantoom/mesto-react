@@ -1,27 +1,33 @@
 import React from "react";
-import profileAvatar from '../images/Man.jpg';
 import api from '../utils/Api.js';
-
-
+import Card from './Card.jsx';
 
 function Main(props) {
 
     const[userName, setUserName] = React.useState('');
     const[userDescription, setUserDescription] = React.useState('');
     const[userAvatar, setUserAvatar] = React.useState('');
+    const[cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
         api.getUserInfo()
             .then((data) => {
-                setUserName(data.name);
-                setUserDescription(data.about);
-                setUserAvatar(data.avatar);
+            setUserName(data.name);
+            setUserDescription(data.about);
+            setUserAvatar(data.avatar);
             })
             .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен: ', err);
+            console.log('Ошибка. Запрос на данные пользователя не выполнен: ', err);
             });
-      }, []);
 
+        // api.getCardData()
+        //     .then((data) => {
+        //     setCards(data); 
+        //     })
+        //     .catch((err) => {
+        //     console.log('Ошибка. Запрос на данные карточек не выполнен: ', err);
+        // });
+    }, []);
 
     return (
         <main className="content">
@@ -39,7 +45,11 @@ function Main(props) {
 
             </section>
 
-            <section className="cardsPlace" aria-label="Фотографии"></section>
+            <section className="cardsPlace" aria-label="Фотографии">
+                {cards.map((item) => {
+                    return <Card key={item._id} {...item}/>
+                })}
+            </section>
         </main>
     )
 }
