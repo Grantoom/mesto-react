@@ -5,23 +5,38 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
 
   const [isAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setPhotoPopupOpen] = React.useState(false);
-  const [SelectedCard, setSelectedCard] = React.useState({})
+  const [SelectedCard, setSelectedCard] = React.useState({});
+  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const [isDeleteOpen, setDeleteOpen] = React.useState(false);
 
-  function handleEditAvatarClick () {
+  function handleCardClick(card) {
+    setSelectedCard({
+      link: card.link,
+      name: card.name  
+    });
+    setImagePopupOpen(true);
+  }
+
+  function handleDeletePopupClick() {
+    setDeleteOpen(true)
+  }
+
+  function handleEditAvatarClick() {
     setAvatarPopupOpen(true);   
   }
 
-  function handleEditProfileClick () {
+  function handleEditProfileClick() {
     setProfilePopupOpen(true);
   }
 
-  function handleAddPlaceClick () {
+  function handleAddPlaceClick() {
     setPhotoPopupOpen(true);
   }
 
@@ -29,6 +44,7 @@ function App() {
     setProfilePopupOpen(false);
     setAvatarPopupOpen(false);
     setPhotoPopupOpen(false);
+    setImagePopupOpen(false);
   }
 
   return (
@@ -42,6 +58,8 @@ function App() {
       onEditProfile={handleEditProfileClick}
       onEditAvatar={handleEditAvatarClick}
       onAddPhoto={handleAddPlaceClick}
+      onCardClick={handleCardClick}
+      openDelete={handleDeletePopupClick}
       />
   
       <Footer />
@@ -105,18 +123,17 @@ function App() {
             <span id="link-error" className="popup__error-visible"></span>
           </label>
     </PopupWithForm>
-  
-    <div className="popup popup-image">
-      <div className="popup-image__container">
-  
-        <button className="popup__exit" type="button" aria-label="Закрыть окно"></button>
-        <img className="popup-image__pic" alt="#" src="#"  />
-        <p className="popup-image__title"></p>
-  
-      </div>
-    </div>
+
+    <ImagePopup
+        
+        card={SelectedCard} 
+        isOpen={isImagePopupOpen}
+        onClose={closeAllPopup}
+      />
   
     <PopupWithForm
+      isOpen={isDeleteOpen}
+      onClose={closeAllPopup}
       name='type_delete-card'
       containerClass="popup__container-delete"
       title='Вы уверены?'
@@ -125,21 +142,6 @@ function App() {
     >
     </PopupWithForm>
 
-    <template id="element-template">
-      <div className="element">
-  
-        <img className="element__img" src="#" alt="#"  />
-        <button className="element__trash" type="button" aria-label="Удалить карточку"></button>
-  
-        <div className="element__description">
-          <h2 className="element__text"></h2>
-          <button className="element__vector" type="button" aria-label="Поставить лайк"></button>
-          <p className="element__like-count">0</p>
-        </div>
-  
-      </div>
-    </template>
-  
   </div>
   );
 }
