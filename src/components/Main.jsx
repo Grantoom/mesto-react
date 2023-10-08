@@ -1,33 +1,30 @@
 import React from "react";
-import profileAvatar from '../images/Man.jpg';
 import api from '../utils/Api.js';
-
-
+import Card from './Card.jsx';
 
 function Main(props) {
 
     const[userName, setUserName] = React.useState('');
     const[userDescription, setUserDescription] = React.useState('');
     const[userAvatar, setUserAvatar] = React.useState('');
+    const[cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-        api.getUserInfo()
-            .then((data) => {
-                setUserName(data.name);
-                setUserDescription(data.about);
-                setUserAvatar(data.avatar);
+        Promise.all([api.getUserInfo(), api.getCards()])
+            .then(([resDataUser, resDataCard]) => {
+                setUserName(resDataUser.name)
+                setUserDescription(resDataUser.about)
+                setUserAvatar(resDataUser.avatar)
+                setCards(resDataCard)
             })
-            .catch((err) => {
-                console.log('Ошибка. Запрос не выполнен: ', err);
-            });
-      }, []);
-
+            .catch(err => console.log(`Что-то пошло не так: ${err}`))
+    }, [])
 
     return (
         <main className="content">
             <section className="profile">
                 <button onClick={props.onEditAvatar} className="profile__avatar-edit-button" type="button" aria-label="Редактировать-аватар"></button>
-                <img style={{ backgroundImage: `url(${userAvatar})` }} src={userAvatar} alt="Фото профиля" className="profile__avatar"  />
+                <img src={userAvatar} alt="Фото профиля" className="profile__avatar"  />
 
                 <div className="profile__info">
                 <h1 className="profile__section-title">{userName}</h1>
@@ -39,7 +36,11 @@ function Main(props) {
 
             </section>
 
-            <section className="cardsPlace" aria-label="Фотографии"></section>
+            <section className="cardsPlace" aria-label="Фотографии">
+                {cards.map((item) => {
+                    return <Card key={item._id} {...item}/>
+                })}
+            </section>
         </main>
     )
 }

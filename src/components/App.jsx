@@ -6,12 +6,12 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 
-
 function App() {
 
   const [isAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setPhotoPopupOpen] = React.useState(false);
+  const [SelectedCard, setSelectedCard] = React.useState({})
 
   function handleEditAvatarClick () {
     setAvatarPopupOpen(true);   
@@ -39,11 +39,9 @@ function App() {
       <Header />
   
       <Main 
-
       onEditProfile={handleEditProfileClick}
       onEditAvatar={handleEditAvatarClick}
       onAddPhoto={handleAddPlaceClick}
-      
       />
   
       <Footer />
