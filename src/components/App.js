@@ -6,10 +6,11 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 
+
 function App() {
 
-  const [isProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
   const [isAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
+  const [isProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setPhotoPopupOpen] = React.useState(false);
 
   function handleEditAvatarClick () {
