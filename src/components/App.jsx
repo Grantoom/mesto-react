@@ -5,23 +5,37 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
-
   const [isAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isProfilePopupOpen, setProfilePopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setPhotoPopupOpen] = React.useState(false);
-  const [SelectedCard, setSelectedCard] = React.useState({})
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const [isDeleteOpen, setDeleteOpen] = React.useState(false);
 
-  function handleEditAvatarClick () {
-    setAvatarPopupOpen(true);   
+  function handleCardClick(card) {
+    setSelectedCard({
+      link: card.link,
+      name: card.name,
+    });
+    setImagePopupOpen(true);
   }
 
-  function handleEditProfileClick () {
+  function handleDeletePopupClick() {
+    setDeleteOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setAvatarPopupOpen(true);
+  }
+
+  function handleEditProfileClick() {
     setProfilePopupOpen(true);
   }
 
-  function handleAddPlaceClick () {
+  function handleAddPlaceClick() {
     setPhotoPopupOpen(true);
   }
 
@@ -29,27 +43,24 @@ function App() {
     setProfilePopupOpen(false);
     setAvatarPopupOpen(false);
     setPhotoPopupOpen(false);
-  }
+    setImagePopupOpen(false);
+  };
 
   return (
     <div className="root">
+      <div className="page">
+        <Header />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onEditAvatar={handleEditAvatarClick}
+          onAddPhoto={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          openDelete={handleDeletePopupClick}
+        />
+        <Footer />
+      </div>
 
-    <div className="page">
-  
-      <Header />
-  
-      <Main 
-      onEditProfile={handleEditProfileClick}
-      onEditAvatar={handleEditAvatarClick}
-      onAddPhoto={handleAddPlaceClick}
-      />
-  
-      <Footer />
-  
-    </div>
-  
-    
-    <PopupWithForm
+      <PopupWithForm
         isOpen={isProfilePopupOpen}
         onClose={closeAllPopup}
         name="edit-profile"
@@ -61,16 +72,34 @@ function App() {
         buttonClass="popup__submit-button_edit-profile"
       >
         <label className="popup__label">
-            <input id="userName-input" className="popup__input popup__input_role_name" placeholder="Имя" name="username" type="text" minlength="2" maxlength="40" required  />
-            <span id="username-error" className="popup__error-visible"></span>
-          </label>
-          <label className="popup__label">
-            <input id="userProf-input" className="popup__input popup__input_role_about" placeholder="О себе" name="profession" type="text" minlength="2" maxlength="200" required  />
-            <span id="profession-error" className="popup__error-visible"></span>
+          <input
+            id="userName-input"
+            className="popup__input popup__input_role_name"
+            placeholder="Имя"
+            name="username"
+            type="text"
+            minLength="2"
+            maxLength="40"
+            required
+          />
+          <span id="username-error" className="popup__error-visible"></span>
         </label>
-    </PopupWithForm>
+        <label className="popup__label">
+          <input
+            id="userProf-input"
+            className="popup__input popup__input_role_about"
+            placeholder="О себе"
+            name="profession"
+            type="text"
+            minLength="2"
+            maxLength="200"
+            required
+          />
+          <span id="profession-error" className="popup__error-visible"></span>
+        </label>
+      </PopupWithForm>
 
-    <PopupWithForm
+      <PopupWithForm
         isOpen={isAvatarPopupOpen}
         onClose={closeAllPopup}
         name="type_avatar"
@@ -80,12 +109,21 @@ function App() {
         buttonText="Сохранить"
       >
         <label className="popup__label">
-            <input id="url" className="popup__input popup__input_type_title" type="url" name="userAvatar" placeholder="Введите ссылку на аватар" minlength="2" maxlength="200" required  />
-            <span id="userAvatar-error" className="popup__error-visible"></span>
-          </label>
-    </PopupWithForm>
+          <input
+            id="url"
+            className="popup__input popup__input_type_title"
+            type="url"
+            name="userAvatar"
+            placeholder="Введите ссылку на аватар"
+            minLength="2"
+            maxLength="200"
+            required
+          />
+          <span id="userAvatar-error" className="popup__error-visible"></span>
+        </label>
+      </PopupWithForm>
 
-    <PopupWithForm
+      <PopupWithForm
         isOpen={isPhotoPopupOpen}
         onClose={closeAllPopup}
         name="add-photo"
@@ -97,50 +135,43 @@ function App() {
         buttonClass="popup__submit-button_add-photo"
       >
         <label className="popup__label">
-            <input id="placeName-input" className="popup__input popup__input_NameCard" placeholder="Название" name="name" type="text" minlength="2" maxlength="30" required  />
-            <span id="name-error" className="popup__error-visible"></span>
-          </label>
-          <label className="popup__label">
-            <input id="placeLink-input" className="popup__input popup__input_UrlCard" placeholder="Ссылка на картинку" name="link" type="url" required  />
-            <span id="link-error" className="popup__error-visible"></span>
-          </label>
-    </PopupWithForm>
-  
-    <div className="popup popup-image">
-      <div className="popup-image__container">
-  
-        <button className="popup__exit" type="button" aria-label="Закрыть окно"></button>
-        <img className="popup-image__pic" alt="#" src="#"  />
-        <p className="popup-image__title"></p>
-  
-      </div>
-    </div>
-  
-    <PopupWithForm
-      name='type_delete-card'
-      containerClass="popup__container-delete"
-      title='Вы уверены?'
-      buttonText="Да"
-      buttonClass="popup__type-delete"
-    >
-    </PopupWithForm>
+          <input
+            id="placeName-input"
+            className="popup__input popup__input_NameCard"
+            placeholder="Название"
+            name="name"
+            type="text"
+            minLength="2"
+            maxLength="30"
+            required
+          />
+          <span id="name-error" className="popup__error-visible"></span>
+        </label>
+        <label className="popup__label">
+          <input
+            id="placeLink-input"
+            className="popup__input popup__input_UrlCard"
+            placeholder="Ссылка на картинку"
+            name="link"
+            type="url"
+            required
+          />
+          <span id="link-error" className="popup__error-visible"></span>
+        </label>
+      </PopupWithForm>
 
-    <template id="element-template">
-      <div className="element">
-  
-        <img className="element__img" src="#" alt="#"  />
-        <button className="element__trash" type="button" aria-label="Удалить карточку"></button>
-  
-        <div className="element__description">
-          <h2 className="element__text"></h2>
-          <button className="element__vector" type="button" aria-label="Поставить лайк"></button>
-          <p className="element__like-count">0</p>
-        </div>
-  
-      </div>
-    </template>
-  
-  </div>
+      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopup} />
+
+      <PopupWithForm
+        isOpen={isDeleteOpen}
+        onClose={closeAllPopup}
+        name="type_delete-card"
+        containerClass="popup__container-delete"
+        title="Вы уверены?"
+        buttonText="Да"
+        buttonClass="popup__type-delete"
+      ></PopupWithForm>
+    </div>
   );
 }
 
