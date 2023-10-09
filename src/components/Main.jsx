@@ -38,9 +38,17 @@ function Main(props) {
 
             <section className="cardsPlace" aria-label="Фотографии">
                 {cards.map((item) => {
-                    return <Card key={item._id} {...item}/>
+                    return (
+                    <Card
+                        key={item._id}
+                        {...item}
+                        onCardClick={props.onCardClick}
+                        openDelete={props.openDelete}
+                    />
+                    );
                 })}
             </section>
+
         </main>
     )
 }
