@@ -16,10 +16,7 @@ function App() {
   const [isDeleteOpen, setDeleteOpen] = React.useState(false);
 
   function handleCardClick(card) {
-    setSelectedCard({
-      link: card.link,
-      name: card.name,
-    });
+    setSelectedCard(card);
     setImagePopupOpen(true);
   }
 
@@ -44,6 +41,7 @@ function App() {
     setAvatarPopupOpen(false);
     setPhotoPopupOpen(false);
     setImagePopupOpen(false);
+    setDeleteOpen(false);
   };
 
   return (
@@ -170,7 +168,7 @@ function App() {
         title="Вы уверены?"
         buttonText="Да"
         buttonClass="popup__type-delete"
-      ></PopupWithForm>
+      />
     </div>
   );
 }

@@ -27,9 +27,9 @@ function Main(props) {
                 <img src={userAvatar} alt="Фото профиля" className="profile__avatar"  />
 
                 <div className="profile__info">
-                <h1 className="profile__section-title">{userName}</h1>
-                <button onClick={props.onEditProfile} className="profile__edit-button" type="button" aria-label="Изменить"></button>
-                <p className="profile__section-subtitle">{userDescription}</p>
+                    <h1 className="profile__section-title">{userName}</h1>
+                    <button onClick={props.onEditProfile} className="profile__edit-button" type="button" aria-label="Изменить"></button>
+                    <p className="profile__section-subtitle">{userDescription}</p>
                 </div>
 
                 <button onClick={props.onAddPhoto} className="profile__add-button" type="button" aria-label="Добавить"></button>
@@ -38,9 +38,17 @@ function Main(props) {
 
             <section className="cardsPlace" aria-label="Фотографии">
                 {cards.map((item) => {
-                    return <Card key={item._id} {...item}/>
+                    return (
+                    <Card
+                        key={item._id}
+                        {...item}
+                        onCardClick={props.onCardClick}
+                        openDelete={props.openDelete}
+                    />
+                    );
                 })}
             </section>
+
         </main>
     )
 }
