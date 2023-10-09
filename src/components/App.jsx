@@ -170,7 +170,7 @@ function App() {
         title="Вы уверены?"
         buttonText="Да"
         buttonClass="popup__type-delete"
-      ></PopupWithForm>
+      />
     </div>
   );
 }
