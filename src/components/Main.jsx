@@ -9,9 +9,8 @@ function Main(props) {
     const currentUser = React.useContext(CurrentUserContext);
 
     React.useEffect(() => {
-        Promise.all([api.getCards()])
-            .then(([resDataCard]) => {
-                
+        api.getCards()
+            .then((resDataCard) => {
                 setCards(resDataCard)
             })
             .catch(err => console.log(`Что-то пошло не так: ${err}`))
