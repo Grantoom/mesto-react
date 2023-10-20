@@ -22,12 +22,12 @@ function Main({onEditProfile, onEditAvatar, onAddPhoto, onCardClick, openDelete,
 
             </section>
 
-            <section className="cardsPlace" aria-label="Фотографии">
-                {cards.map((item) => {
+            <section className="elements" aria-label="Фотографии">
+                {cards.map((card) => {
                     return (
                         <Card
-                            key={item._id}
-                            {...item}
+                            key={card._id}
+                            {...card}
                             onCardClick={onCardClick}
                             openDelete={openDelete}
                             onCardLike={onCardLike}
