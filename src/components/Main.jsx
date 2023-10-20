@@ -27,7 +27,7 @@ function Main({onEditProfile, onEditAvatar, onAddPhoto, onCardClick, openDelete,
                     return (
                         <Card
                             key={card._id}
-                            {...card}
+                            card={card}
                             onCardClick={onCardClick}
                             openDelete={openDelete}
                             onCardLike={onCardLike}
