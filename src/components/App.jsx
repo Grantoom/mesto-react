@@ -70,6 +70,17 @@ function App() {
     })
 }
 
+function handleCardDelete(card) {
+  api.deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((elem) => elem._id !== card._id));
+      })
+
+      .catch((err) => {
+          console.log(err);
+      })
+}
+
   return (
     <div className="root">
       <div className="page">
@@ -82,6 +93,7 @@ function App() {
             onAddPhoto={handleAddPlaceClick}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
             openDelete={handleDeletePopupClick}
           />
         </CurrentUserContext.Provider>

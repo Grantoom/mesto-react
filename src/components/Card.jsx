@@ -8,7 +8,7 @@ function Card(props) {
   const isOwn = props.card.owner._id === currentUser._id;
   const cardLikeButtonClassName = `${isLiked ? 'element__vector element__vector_active' : 'element__vector'}`
 
-  const cardRemoveButtonClassName = `${isOwn ? 'element__trash elements__delete-button_visible' : 'element__trash elements__delete-button_hidden'}`
+  const cardRemoveButtonClassName = `${isOwn ? 'element__trash element__trash_visible' : 'element__trash element__trash_hidden'}`
 
   function handleCardClick() {
     props.onCardClick(props.card)

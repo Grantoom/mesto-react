@@ -16,3 +16,7 @@
 .element__trash:hover {
     opacity: .5;
 }
+
+.element__trash_hidden {
+    visibility: hidden;
+}
