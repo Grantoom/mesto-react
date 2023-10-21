@@ -53,11 +53,11 @@ class Api {
 
   sendUserInfo(userData) {
       return this._sendRequest(`${this._baseUrl}/users/me`, {
-        headers: this._headers,
         method: 'PATCH',
+        headers: this._headers,
         body: JSON.stringify({ 
-          name: userData.username, 
-          about: userData.profession 
+          name: userData.name, 
+          about: userData.about 
         })
       });
   }
