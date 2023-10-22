@@ -5,14 +5,14 @@ class Api {
     }
 
   _sendRequest(baseUrl, options) {
-      return fetch(baseUrl, options)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-  
-          return Promise.reject(new Error('Ошибка'));
-        })
+    return fetch(baseUrl, options)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+
+        return Promise.reject(new Error('Ошибка'));
+      })
     }
   
   getCards() {
@@ -22,18 +22,18 @@ class Api {
   }
 
   createNewCard({name, link}) {
-      console.log(JSON.stringify({
-          name: name,
-          link: link
-      }));
+    console.log(JSON.stringify({
+        name: name,
+        link: link
+    }));
     
     return this._sendRequest(`${this._baseUrl}/cards`, {
-              method: "POST",
-              headers: this._headers,
-              body: JSON.stringify({
-                  name,
-                  link
-              })
+        method: "POST",
+        headers: this._headers,
+        body: JSON.stringify({
+            name,
+            link
+        })
       });
   }
 
@@ -49,7 +49,6 @@ class Api {
         headers: this._headers
       });
   }
-
 
   sendUserInfo(userData) {
       return this._sendRequest(`${this._baseUrl}/users/me`, {
@@ -77,12 +76,12 @@ class Api {
       })
   }
 
-  handleUserAvatar(data) {
+  setUserAvatar(data) {
       return this._sendRequest(`${this._baseUrl}/users/me/avatar`, {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          avatar: data.userAvatar,
+          avatar: data.avatar,
         })
       })
   }
