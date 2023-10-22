@@ -82,7 +82,7 @@ class Api {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          avatar: data.userAvatar,
+          avatar: data.avatar,
         })
       })
   }
