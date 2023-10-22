@@ -28,9 +28,8 @@ function EditProfilePopup (props) {
     }).catch(err => {
         console.log(`Ошибка при обновлении профиля: ${err}`);
     });
-}
+  }
 
-    
   return (
     <PopupWithForm
       isOpen={props.isOpen}
@@ -55,7 +54,7 @@ function EditProfilePopup (props) {
           maxLength="40"
           required
           onChange={handleChangeName}
-          value={name || ''}
+          value={name || ""}
         />
         <span id="username-error" className="popup__error-visible"></span>
       </label>
@@ -71,7 +70,7 @@ function EditProfilePopup (props) {
           maxLength="200"
           required
           onChange={handleChangeDescription}
-          value={description || ''}
+          value={description || ""}
         />
         <span id="profession-error" className="popup__error-visible"></span>
       </label>
