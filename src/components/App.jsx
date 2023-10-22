@@ -29,15 +29,11 @@ function App() {
             setCards(cardsData);
         })
         .catch(err => console.log(`Что-то пошло не так: ${err}`));
-}, []);
+  }, []);
 
   function handleCardClick(card) {
     setSelectedCard(card);
     setImagePopupOpen(true);
-  }
-
-  function handleDeletePopupClick() {
-    setDeleteOpen(true);
   }
 
   function handleEditAvatarClick() {
@@ -64,47 +60,58 @@ function App() {
   
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     
-    api.addCardLike(card._id, !isLiked)
+    if(!isLiked) {
+      api.addCardLike(card._id, !isLiked)
       .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
       .catch((err) => {
         console.log(err);
     })
+    } else {
+      api.deleteCardLike(card._id, isLiked)
+      .then((newCard) => {
+          setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        console.log(err);
+    })
+    }
+
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
-        .then(() => {
-          setCards((state) => state.filter((elem) => elem._id !== card._id));
-        })
+      .then(() => {
+        setCards((state) => state.filter((elem) => elem._id !== card._id));
+      })
 
-        .catch((err) => {
-            console.log(err);
-        })
+      .catch((err) => {
+          console.log(err);
+      })
   }
 
   function handleUpdateUser(userData) {
     api.sendUserInfo(userData)
-        .then((userData) => {
-            setCurrentUser(userData);
-            closeAllPopup();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+      .then((userData) => {
+          setCurrentUser(userData);
+          closeAllPopup();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleUpdateAvatar(data) {
-    api.setUserAvatar(data)
-        .then((data) => {
-            setCurrentUser(data);
-            closeAllPopup();
-        })
+    api.handleUserAvatar(data)
+      .then((data) => {
+          setCurrentUser(data);
+          closeAllPopup();
+      })
 
-        .catch((err) => {
-            console.log(err);
-        })
+      .catch((err) => {
+          console.log(err);
+      })
   }
   
   return (
@@ -121,7 +128,6 @@ function App() {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-            openDelete={handleDeletePopupClick}
           />
         
         <Footer />
@@ -179,7 +185,6 @@ function App() {
         buttonText="Да"
         buttonClass="popup__type-delete"
       />
-
       
     </div>
     </CurrentUserContext.Provider>
