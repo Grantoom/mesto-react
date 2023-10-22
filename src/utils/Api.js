@@ -50,7 +50,6 @@ class Api {
       });
   }
 
-
   sendUserInfo(userData) {
       return this._sendRequest(`${this._baseUrl}/users/me`, {
         method: 'PATCH',
