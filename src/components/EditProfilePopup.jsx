@@ -1,23 +1,23 @@
 import React from "react";
-import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import PopupWithForm from "./PopupWithForm.jsx";
 
-function EditProfilePopup (props) {
+function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
 
-  function handleChangeName (e) {
-      setName(e.target.value); 
+  function handleChangeName(e) {
+    setName(e.target.value);
   }
 
-  function handleChangeDescription (e) {
-      setDescription(e.target.value);
+  function handleChangeDescription(e) {
+    setDescription(e.target.value);
   }
 
   React.useEffect(() => {
-      setName(currentUser.name);
-      setDescription(currentUser.about);
+    setName(currentUser.name);
+    setDescription(currentUser.about);
   }, [currentUser, props.isOpen]);
 
   function handleSubmit(e) {
@@ -25,8 +25,6 @@ function EditProfilePopup (props) {
     props.onUpdateUser({
       name,
       about: description,
-    }).catch(err => {
-        console.log(`Ошибка при обновлении профиля: ${err}`);
     });
   }
 
@@ -58,7 +56,7 @@ function EditProfilePopup (props) {
         />
         <span id="username-error" className="popup__error-visible"></span>
       </label>
-      
+
       <label className="popup__label">
         <input
           id="userProf-input"
@@ -74,9 +72,8 @@ function EditProfilePopup (props) {
         />
         <span id="profession-error" className="popup__error-visible"></span>
       </label>
-
     </PopupWithForm>
-  )
+  );
 }
 
 export default EditProfilePopup;
